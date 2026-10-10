@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Una pregunta importante ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe0eb, #f8c8dc, #fff0f5);
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .corazon {
+      position: fixed;
+      top: -30px;
+      color: #f06a99;
+      font-size: 24px;
+      animation: caer 7s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes caer {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    .cuadro {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      padding: 35px 25px;
+      border-radius: 24px;
+      text-align: center;
+      box-shadow: 0 12px 40px #d66b9433;
+      position: relative;
+      z-index: 2;
+    }
+
+    .emoji {
+      font-size: 65px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      color: #c0396b;
+      font-size: 27px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .botones {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    button {
+      border: none;
+      padding: 13px 25px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .si, .continuar {
+      background: #e75480;
+      color: white;
+    }
+
+    .no {
+      background: #eeeeee;
+      color: #444;
+    }
+
+    .oculto {
+      display: none;
+    }
+
+    .continuar {
+      margin-top: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pantalla1" class="cuadro">
+    <div class="emoji">🥹💗</div>
+    <h1>¿Quieres salir conmigo?</h1>
+    <p>Tengo una pregunta muy importante que hacerte...</p>
+
+    <div class="botones">
+      <button class="si" onclick="aceptar()">¡Sí! ❤️</button>
+      <button class="no" id="botonNo">No 😈</button>
+    </div>
+  </div>
+
+  <div id="pantalla2" class="cuadro oculto">
+    <div class="emoji">😳💘</div>
+    <h1>¿En serio me acabas de decir que sí?</h1>
+    <p>
+      Yo ya me estaba preparando emocionalmente
+      para que me dijeras que no. 😭
+    </p>
+    <p>¡No puedo creer que esto esté pasando!</p>
+    <button class="continuar" onclick="siguiente()">
+      Bueno, continuemos 😂
+    </button>
+  </div>
+
+  <script>
+    const botonNo = document.getElementById("botonNo");
+
+    function escapar() {
+      const margen = 15;
+      const ancho = botonNo.offsetWidth;
+      const alto = botonNo.offsetHeight;
+
+      const maxX = Math.max(
+        margen,
+        window.innerWidth - ancho - margen
+      );
+
+      const maxY = Math.max(
+        margen,
+        window.innerHeight - alto - margen
+      );
+
+      botonNo.style.position = "fixed";
+      botonNo.style.left =
+        Math.random() * (maxX - margen) + margen + "px";
+      botonNo.style.top =
+        Math.random() * (maxY - margen) + margen + "px";
+      botonNo.style.zIndex = "10";
+    }
+
+    botonNo.addEventListener("pointerenter", escapar);
+    botonNo.addEventListener("click", escapar);
+    botonNo.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      escapar();
+    }, { passive: false });
+
+    function aceptar() {
+      document.getElementById("pantalla1").classList.add("oculto");
+      document.getElementById("pantalla2").classList.remove("oculto");
+      botonNo.style.position = "";
+    }
+
+    function siguiente() {
+      alert("¡Perfecto! Ahora vamos a organizar esa cita. 😏");
+    }
+
+    for (let i = 0; i < 15; i++) {
+      const corazon = document.createElement("div");
+      corazon.className = "corazon";
+      corazon.textContent = Math.random() > 0.5 ? "♥" : "♡";
+      corazon.style.left = Math.random() * 100 + "vw";
+      corazon.style.animationDelay = Math.random() * 7 + "s";
+      corazon.style.animationDuration = (5 + Math.random() * 5) + "s";
+      document.body.appendChild(corazon);
+    }
+  </script>
+
+</body>
+</html>
